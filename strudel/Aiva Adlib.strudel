@@ -1,0 +1,37 @@
+
+//@by CircleFriendo
+
+samples({
+  adlib: 'samples/Aiva Vocal Pack/av_140bpm_Cminor_adlib 2_bip.wav'
+},
+'https://raw.githubusercontent.com/CircleFriendo/music/main/')
+
+s("bassdrum snaredrum:0 bassdrum snaredrum:1, hihat*16")
+
+setcpm(140/4)
+
+$: stack(
+  s("<adlib>").slice(10, cat(
+    "[0 1 2 3 - 3 4 5]",
+    "[- 1 2 - - 1 2 -]",
+    "[0 1 2 3 - 4 5 -]",
+    "[4 5 - 3 4 5 6 -]",
+    "[0 1 2 3 - 3 4 5]",
+    "[- 1 2 - - 1 2 -]",
+    "[7 7 - 7 7 - 4 5]",
+    "[0 1 2 3 4 5 6 7]"
+  ))).distort("1:.8").room(1)
+
+$:s("gm_string_ensemble_1").chord("<Cm Fm G Ab>").voicing()
+  .room(2).gain(.7).crush(5)//.distort("1:.8")
+
+$:s("gm_synth_bass_2").note("<C2 F2 G2 Ab2>".add("0 7 0 7"))
+  .struct("x(9,16)")
+  .distort("1:.8").gain(2)
+
+$:stack(
+  s("bd!4"),
+  s("- sd - sd"),
+  s("<[- - - lt - ht - -] [ - lt - ht lt ht - ht ]>"),
+  s("hh!8").gain("[.8 .5]!4").degradeBy(.125).ribbon(12,4)
+     ).bank("tr909")
