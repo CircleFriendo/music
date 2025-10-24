@@ -1,0 +1,41 @@
+//@title Basic Dance Groove
+//@by CircleFriendo
+
+setcpm(180/4)
+
+const ROOM = slider(1.464,0,2)
+
+const BASS = s("bd").struct("x - x -").bank("tr909")
+const CLAP = s("cp").struct("- x - x").bank("tr909").gain(".5 .8")
+const HIGHHAT = s("hh").struct("x x x x x x x x").bank("tr909").gain(.5)
+const OHAT = s("oh").struct("x(3,8,7)").bank("tr909").gain(.3).delay(.15)
+const FILL = s("hh").struct("<-!3 [-!12 - - - x] -!3 [-!12 - x - x]>").bank("tr909").gain(.8)
+const FULLDRUMS = stack(BASS, CLAP, HIGHHAT, OHAT)
+
+const CHORDS = "<Am7@2 Em7@2 Dm7@2 C7@2>"
+
+const STRINGS = chord(CHORDS).voicing().s("gm_pad_halo").struct("x(5,8,<3 5>)").gain(slider(0.728,0,2))
+
+const BASSLINE = chord(CHORDS).rootNotes("<2@2 3@2>").gain(slider(1.264,0,2)).s("sawtooth").room(ROOM).lpf(1400)
+
+
+const MELODY1 = note("<[a3 - a3 - b3 b3 a3 -] [- e4 - e4 d4 c4 a3 -]>").s("sawtooth").hpf(600).room(ROOM).transpose(12)
+const MELODY2 = note("<[a3 - e4 - d4 d4 c4 -] [- a3 - e4 d4 c4 a3 -]>").s("sawtooth").hpf(600).room(ROOM).transpose(12)
+const MELODY3 = note(slowcat("[a3 -  a4 -  e4 d4 c4 -]",
+                             "[a4 e4 -  e4 a3 c4 d4 -]",
+                             "[e4 -  a4 -  e4 d4 c4 -]",
+                             "[a4 e4 -  e4 d4 c4 a3 -]")).s("sawtooth").hpf(600).room(ROOM).transpose(12)
+
+const HIGHLINE = note("<a5@2 e5@2 d5@2 c5@2>").gain(slider(0.5,0,2)).s("sawtooth").room(ROOM).hpf(600).vib(40).vibmod(.15)
+
+const MIN = stack(HIGHHAT, BASSLINE, FILL)
+const NOMELODY =  stack(FULLDRUMS, BASSLINE, FILL)
+const WITHMELODY1 = stack(NOMELODY, MELODY1, HIGHLINE, STRINGS)
+const WITHMELODY2 = stack(NOMELODY, MELODY2, HIGHLINE, STRINGS)
+const WITHMELODY3 = stack(NOMELODY, MELODY3, HIGHLINE, STRINGS)
+  
+const MIX = slider(0,0,1)
+const MIX1 = WITHMELODY3
+const MIX2 = WITHMELODY2
+
+$: xfade(MIX1, MIX, MIX2)
