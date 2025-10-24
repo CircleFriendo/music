@@ -1,0 +1,29 @@
+//@title Phase
+//@by CircleFriendo
+
+setcpm(150/4)
+
+$: n("[0 2 5 4 3 8 6 4 0 2 -2 5 4 0 6 7 ]/2"
+      .off(1/32, add("7"))
+      .off(1/16, add("2"))
+    )
+  .scale("F:minor")
+      .s("gm_epiano1")
+      .struct("x(7,8,<1 2 6 5>)")
+      .gain(.8)
+      .room(.9)
+      .pianoroll()
+
+$: n("<0@2 2@2>".add("-12")).scale("F:minor").s("gm_acoustic_bass")
+    .struct("x(5,8,<0 1>)")
+
+$: n("<0 2 0 4>".add("12")).scale("F:minor").s("gm_pad_choir").gain(1.2)
+    
+
+$: stack(
+  s("bd"),
+  s("sd").struct("- - x*<1 2> x*<-@7 4>").delay(.015),
+  s("cp").struct("- x*2 - x").gain(.7),
+  s("hh*8").gain("[.4 .7]*<1 4>").degradeBy(1/8),
+  s("cr").struct("<x -@7>").gain(.3)
+).bank("tr909")
