@@ -1,0 +1,14 @@
+//@title Simple Intro
+//@by CircleFriendo
+
+
+setcpm(160/4)
+
+stack(
+   note("<[ -@4 a g a b] [c4@3 e4@2 c4@2 a] [b c4@2 e4@2 a@3] [-] >").s("piano").gain(1.4).distort("1.1:.75"),
+   note("<[ -] [a2 c3 e3 g3@5] [c3 e3 g3 a3@5] [-] >").s("piano").gain(.5),
+   s("hh").struct("<[-] [x@3 x@2 x@2 x] [x@3 x@2 x@2 -] [-]>").gain(.1).bank("tr909"),
+  note("<[-] [a2] [c3@3 a2@5] [-] >").s("gm_acoustic_bass").distort("1.1:.35"),
+  note("<[-] [a2] [c3@3 a2@5] [-] >").s("gm_trombone").distort("1.1:.5")
+)
+.room(1.1)
